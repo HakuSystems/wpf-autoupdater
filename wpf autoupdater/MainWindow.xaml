@@ -5,7 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_autoupdater"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="450"
+        Width="800">
     <Grid>
         
     </Grid>
