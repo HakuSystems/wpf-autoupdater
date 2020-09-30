@@ -50,6 +50,10 @@ namespace wpf_autoupdater
                 {
                     //else if up to date
                     MessageBox.Show("up to date.");
+                    //open Actual Application
+                    ApplicationWindow application = new ApplicationWindow();
+                    application.Show();
+                    this.Close();
                 }
             }
             catch (Exception ex)
