@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,6 +28,8 @@ namespace wpf_autoupdater
         {
             InitializeComponent();
         }
+        //Downloaded File name (Custom, can be changed.)
+        string downloadedapplicationName = "wpfautoupdaterUpdated.exe";
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -53,7 +56,7 @@ namespace wpf_autoupdater
                     client.DownloadProgressChanged += client_DownloadProgressChanged;
                     client.DownloadFileCompleted += client_DownloadFileCompleted;
                     //Downloads the Actual File and Puts the file to \wpfautoupdater\Application\ and renames it to "wpfautoupdaterUpdated"
-                    client.DownloadFileAsync(new Uri(PathStrings.AppExecutableURL), PathStrings.desktopPath + PathStrings.AppExecutablePath + $"wpfautoupdaterUpdated.exe");
+                    client.DownloadFileAsync(new Uri(PathStrings.AppExecutableURL), PathStrings.desktopPath + PathStrings.AppExecutablePath + downloadedapplicationName);
                 }
                 else
                 {
@@ -70,18 +73,29 @@ namespace wpf_autoupdater
             }
         }
 
-        private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            //when Downloaded then open actual application
-            ApplicationWindow application = new ApplicationWindow();
-            application.Show();
-            this.Close();
-        }
-
         private void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             //Indicates Progress in bytes and MB
             progressInfo.Content = $"{e.BytesReceived} Bytes ({e.BytesReceived / 1046576} MB) Downloaded.";
+        }
+
+        private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            //when Downloaded then open Downloaded application (or file)
+            try
+            {
+                //Opens small Window for more Information
+                MessageBox.Show("Download Finished, New Application will now run.", "Information");
+                //Gets folder path and downloadedapplicationName and opens it
+                Process.Start(PathStrings.desktopPath + PathStrings.AppExecutablePath + downloadedapplicationName);
+                //Closes old program
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                //if there are Errors
+                MessageBox.Show(ex.Message, "UpdateWindow.xaml.cs DownloadFileCompleted");
+            }
         }
     }
 }
