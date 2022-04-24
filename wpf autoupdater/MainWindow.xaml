@@ -18,6 +18,6 @@
         Height="450"
         Width="800">
     <Grid>
-        
+        <ProgressBar Height="20" Width="150" Visibility="Collapsed" x:Name="progressBarOnWindow"/>
     </Grid>
 </Window>

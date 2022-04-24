@@ -27,7 +27,7 @@ namespace wpf_autoupdater
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             versionNumber.Content = "V" + Application.ResourceAssembly.ManifestModule.Assembly.GetName().Version.ToString() + " - Current Application Version";
-            infoText.Text = "This program is an example on how to Auto Download any application. \n Maybe im gonna add a method where \n the program automaticly opens the newest Version.";
+            infoText.Text = "This program is an example on how to Auto Download any application.";
         }
     }
 }
